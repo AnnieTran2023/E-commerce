@@ -19,17 +19,21 @@ public class EcommerceApplication {
 	public CommandLineRunner bookDemo(ProductRepository repository) {
 		return (args) -> {
 
-			// Create products
-			Product iphone15 = new Product("iPhone 15", "The latest iPhone", 999.99);
-			Product samsungGalaxy = new Product("Samsung Galaxy", "The latest Samsung Galaxy", 899.99);
-			Product huaweiP40 = new Product("Huawei P40", "The latest Huawei P40", 799.99);
+			// if (repository.count() == 0) {
 
-			// Save products
-			repository.save(iphone15);
-			repository.save(samsungGalaxy);
-			repository.save(huaweiP40);
+			// 	// Create products
+			// 	Product iphone15 = new Product("iPhone 15", "The latest iPhone", 999.99);
+			// 	Product samsungGalaxy = new Product("Samsung Galaxy", "The latest Samsung Galaxy", 899.99);
+			// 	Product huaweiP40 = new Product("Huawei P40", "The latest Huawei P40", 799.99);
 
-			System.out.println("Sample products inserted into the database.");
+			// 	// Save products
+			// 	repository.save(iphone15);
+			// 	repository.save(samsungGalaxy);
+			// 	repository.save(huaweiP40);
 
+			// 	System.out.println("Sample products inserted into the database.");
+			// } else {
+			// 	System.out.println("Sample products already exist in the database.");
+			// }
 	}; 
 }}
