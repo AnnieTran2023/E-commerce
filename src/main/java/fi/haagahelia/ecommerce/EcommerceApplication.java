@@ -6,6 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import fi.haagahelia.ecommerce.domain.ProductRepository;
+import fi.haagahelia.ecommerce.domain.Category;
+import fi.haagahelia.ecommerce.domain.CategoryRepository;
 import fi.haagahelia.ecommerce.domain.Product;
 
 @SpringBootApplication
@@ -16,24 +18,25 @@ public class EcommerceApplication {
 	}
 
 	@Bean
-	public CommandLineRunner bookDemo(ProductRepository repository) {
+	public CommandLineRunner bookDemo(ProductRepository repository, CategoryRepository categoryRepository) {
 		return (args) -> {
+			// Create categories
+			Category phone = new Category("Phone");
+			Category tablet = new Category("Tablet");
+			categoryRepository.save(phone);
+			categoryRepository.save(tablet);
 
-			// if (repository.count() == 0) {
+			// Create products
+			Product iphone15 = new Product("iPhone 15", "The latest iPhone", 999.99, "Phone");
+			Product samsungGalaxy = new Product("Samsung Galaxy", "The latest Samsung Galaxy", 899.99, "Phone");
+			Product iPad = new Product("iPad", "The latest iPad", 799.99, "Tablet");
+			// Save products
+			repository.save(iphone15);
+			repository.save(samsungGalaxy);
+			repository.save(iPad);
 
-			// 	// Create products
-			// 	Product iphone15 = new Product("iPhone 15", "The latest iPhone", 999.99);
-			// 	Product samsungGalaxy = new Product("Samsung Galaxy", "The latest Samsung Galaxy", 899.99);
-			// 	Product huaweiP40 = new Product("Huawei P40", "The latest Huawei P40", 799.99);
+			System.out.println("Sample products inserted into the database.");
 
-			// 	// Save products
-			// 	repository.save(iphone15);
-			// 	repository.save(samsungGalaxy);
-			// 	repository.save(huaweiP40);
-
-			// 	System.out.println("Sample products inserted into the database.");
-			// } else {
-			// 	System.out.println("Sample products already exist in the database.");
-			// }
-	}; 
-}}
+		};
+	}
+}
