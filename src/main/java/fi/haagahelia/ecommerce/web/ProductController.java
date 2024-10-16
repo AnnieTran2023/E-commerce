@@ -1,13 +1,11 @@
 package fi.haagahelia.ecommerce.web;
 
 import java.util.List;
-
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import fi.haagahelia.ecommerce.domain.Product;
 import fi.haagahelia.ecommerce.domain.ProductRepository;
-
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,12 +48,6 @@ public class ProductController {
     public @ResponseBody String deleteAllProducts() {
         productRepository.deleteAll();
         return "All products deleted successfully!";
-    }
-
-    // Rest service to get all products by category
-    @RequestMapping(value = "/category/{categoryName}", method = RequestMethod.GET)
-    public @ResponseBody List<Product> findProductByCategory(@PathVariable("categoryName") String categoryName) {
-        return productRepository.findByCategoryName(categoryName);
     }
 
 }

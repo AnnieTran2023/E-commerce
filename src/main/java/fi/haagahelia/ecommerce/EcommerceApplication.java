@@ -20,16 +20,16 @@ public class EcommerceApplication {
 	@Bean
 	public CommandLineRunner bookDemo(ProductRepository repository, CategoryRepository categoryRepository) {
 		return (args) -> {
-			// Create categories
-			Category phone = new Category("Phone");
-			Category tablet = new Category("Tablet");
+			//Create categories
+			Category phone = new Category("Phone", "mobile phones");
+			Category tablet = new Category("Tablet", "all sorts of tablets");
 			categoryRepository.save(phone);
 			categoryRepository.save(tablet);
 
 			// Create products
-			Product iphone15 = new Product("iPhone 15", "The latest iPhone", 999.99, "Phone");
-			Product samsungGalaxy = new Product("Samsung Galaxy", "The latest Samsung Galaxy", 899.99, "Phone");
-			Product iPad = new Product("iPad", "The latest iPad", 799.99, "Tablet");
+			Product iphone15 = new Product("iPhone 15", "The latest iPhone", "https://www.apple.com/newsroom/images/product/iphone/standard/Apple_announce-iphone13pro_09142021_big.jpg.og.jpg", 999.99, phone);
+			Product samsungGalaxy = new Product("Samsung Galaxy", "The latest Samsung Galaxy", "https://www.samsung.com/us/smartphones/galaxy-s21-5g/_jcr_content/og-v2.jpg", 899.99, phone);
+			Product iPad = new Product("iPad", "The latest iPad", "https://store.store", 499.99, tablet);
 			// Save products
 			repository.save(iphone15);
 			repository.save(samsungGalaxy);

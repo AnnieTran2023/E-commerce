@@ -1,6 +1,7 @@
 package fi.haagahelia.ecommerce.domain;
 
 import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.Id;
@@ -12,17 +13,21 @@ public class Product {
     private ObjectId id;
     private String name;
     private String description;
+    private String imageUrl;
     private double price;
-    private String categoryName;
+
+    @DBRef
+    private Category category; 
     
     public Product() {
     }
 
-    public Product(String name, String description, double price, String categoryName) {
+    public Product(String name, String description, String imageUrl, double price, Category category) {
         this.name = name;
         this.description = description;
+        this.imageUrl = imageUrl;
         this.price = price;
-        this.categoryName = categoryName;
+        this.category = category;
     }
 
     public ObjectId getId() {
@@ -49,6 +54,14 @@ public class Product {
         this.description = description;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -57,12 +70,14 @@ public class Product {
         this.price = price;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setCategory(Category category) {
+        this.category = category;
     }
+    
+    
     
 }
