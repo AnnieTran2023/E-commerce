@@ -40,9 +40,22 @@ public class ProductController {
 
     // Rest service to delete product by id
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public @ResponseBody String deleteBook(@PathVariable("id") ObjectId id) {
+    public @ResponseBody String deleteProduct(@PathVariable("id") ObjectId id) {
         productRepository.deleteById(id);
         return "Product deleted successfully " + id;
+    }
+
+    //Rest service to delete all products
+    @RequestMapping(value = "/deleteAll", method = RequestMethod.GET)
+    public @ResponseBody String deleteAllProducts() {
+        productRepository.deleteAll();
+        return "All products deleted successfully!";
+    }
+
+    // Rest service to get all products by category
+    @RequestMapping(value = "/category/{categoryName}", method = RequestMethod.GET)
+    public @ResponseBody List<Product> findProductByCategory(@PathVariable("categoryName") String categoryName) {
+        return productRepository.findByCategoryName(categoryName);
     }
 
 }
