@@ -17,8 +17,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/orders/**").hasRole("ADMIN")
-                        .requestMatchers("/products/**").hasRole("USER")
+                        .requestMatchers("/orders/**").hasAuthority("ADMIN")
+                        .requestMatchers("/products/**").hasAuthority("USER")
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/").permitAll())
                 .formLogin(withDefaults())

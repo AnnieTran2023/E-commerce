@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.Id;
 
-@Document (collection = "order")
+@Document(collection = "order")
 public class Order {
 
     @Id
@@ -18,17 +18,21 @@ public class Order {
     private String status;
 
     @DBRef
-    private List <Product> products;
+    private List<Product> products;
 
-    public Order(){
+    @DBRef
+    private User user;
+
+    public Order() {
 
     }
 
-    public Order(String orderDate, double totalPrice, String status, List<Product> products) {
+    public Order(String orderDate, double totalPrice, String status, List<Product> products, User user) {
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
         this.status = status;
         this.products = products;
+        this.user = user;
     }
 
     public ObjectId getId() {
@@ -70,4 +74,13 @@ public class Order {
     public void setProducts(List<Product> products) {
         this.products = products;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 }
