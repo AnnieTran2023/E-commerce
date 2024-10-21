@@ -48,9 +48,9 @@ public class EcommerceApplication {
 			System.out.println("Sample products inserted into the database.");
 
 			 // Create orders
-            Order order1 = new Order("2023-10-01", 0, "NEW", Arrays.asList(iphone15, samsungGalaxy));
+            Order order1 = new Order("2023-10-01", 0, "Complete", Arrays.asList(iphone15, samsungGalaxy));
             order1.setTotalPrice(calculateTotalPrice(order1.getProducts()));
-            Order order2 = new Order("2023-10-02", 0, "NEW", Arrays.asList(iPad));
+            Order order2 = new Order("2023-10-02", 0, "Complete", Arrays.asList(iPad));
             order2.setTotalPrice(calculateTotalPrice(order2.getProducts()));
             orderRepository.save(order1);
             orderRepository.save(order2);
