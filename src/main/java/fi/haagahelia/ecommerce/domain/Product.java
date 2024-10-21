@@ -17,21 +17,23 @@ public class Product {
     private String description;
     private String imageUrl;
     private double price;
+    private int quantity;
 
     @DBRef
     private Category category; 
 
     @DBRef
-    private List<Order> orders;
+    private List<OrderProduct> orderProducts;
     
     public Product() {
     }
 
-    public Product(String name, String description, String imageUrl, double price, Category category) {
+    public Product(String name, String description, String imageUrl, double price, int quantity, Category category) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
         this.price = price;
+        this.quantity = quantity;
         this.category = category;
     }
 
@@ -75,6 +77,14 @@ public class Product {
         this.price = price;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public Category getCategory() {
         return category;
     }
@@ -83,15 +93,13 @@ public class Product {
         this.category = category;
     }
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<OrderProduct> getOrderProducts() {
+        return orderProducts;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrderProducts(List<OrderProduct> orderProducts) {
+        this.orderProducts = orderProducts;
     }
-    
-    
-    
+
     
 }

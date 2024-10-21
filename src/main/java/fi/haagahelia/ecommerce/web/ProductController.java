@@ -25,7 +25,7 @@ public class ProductController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // Rest service to get all products
+
     // Rest service to get all products
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public @ResponseBody List<Product> productRest() {

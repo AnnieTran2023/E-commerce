@@ -2,6 +2,7 @@ package fi.haagahelia.ecommerce.web;
 
 import fi.haagahelia.ecommerce.domain.Product;
 import fi.haagahelia.ecommerce.domain.User;
+import fi.haagahelia.ecommerce.domain.OrderProduct;
 import fi.haagahelia.ecommerce.domain.UserRepository;
 import fi.haagahelia.ecommerce.domain.UserRegistrationDto;
 import fi.haagahelia.ecommerce.service.OrderService;
@@ -54,7 +55,8 @@ public class UserController {
         String username = authentication.getName();
         User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
         return orderService.getOrdersByUserId(user.getId()).stream()
-                .flatMap(order -> order.getProducts().stream())
+                .flatMap(order -> order.getOrderProducts().stream())
+                .map(OrderProduct::getProduct)
                 .collect(Collectors.toList());
     }
 }
