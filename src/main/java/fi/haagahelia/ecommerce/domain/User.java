@@ -1,9 +1,10 @@
 package fi.haagahelia.ecommerce.domain;
 
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Document; 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import jakarta.persistence.Id;
-
+import java.util.List;
 
 @Document (collection = "user")
 public class User {
@@ -13,6 +14,9 @@ public class User {
     private String username;
     private String password;
     private String role;
+
+    @DBRef
+    private List<Order> orders;
 
     public User() {
     }
@@ -53,6 +57,14 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
 

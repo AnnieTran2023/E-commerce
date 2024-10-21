@@ -6,12 +6,16 @@ import java.util.Date;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.security.core.Authentication;
 
 import fi.haagahelia.ecommerce.domain.Order;
 import fi.haagahelia.ecommerce.domain.OrderRepository;
 import fi.haagahelia.ecommerce.domain.Product;
 import fi.haagahelia.ecommerce.domain.ProductRepository;
+import fi.haagahelia.ecommerce.domain.UserRepository;
+import fi.haagahelia.ecommerce.domain.User;
 
 @RestController
 @RequestMapping("/orders")
@@ -22,6 +26,9 @@ public class OrderController {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     // Get all orders
     @GetMapping
@@ -38,9 +45,14 @@ public class OrderController {
     // Create a new order
     @PostMapping("/add")
     public Order addOrder(@RequestBody List<ObjectId> productIds) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
         List<Product> products = productRepository.findAllById(productIds);
         double totalPrice = calculateTotalPrice(products);
-        Order order = new Order(new Date().toString(), totalPrice, "Complete", products);
+        
+        User user = userRepository.findByUsername(username).orElseThrow(() -> new RuntimeException("User not found"));
+        Order order = new Order(new Date().toString(), totalPrice, "Complete", products, user);
         Order savedOrder = orderRepository.save(order);
 
         // Update products with the new order reference
