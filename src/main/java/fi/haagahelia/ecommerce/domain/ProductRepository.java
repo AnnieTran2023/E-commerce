@@ -9,7 +9,5 @@ import org.springframework.lang.NonNull;
 public interface ProductRepository extends MongoRepository <Product, ObjectId> {
     List <Product> findByName(String name);
     void deleteById(@NonNull ObjectId id);
-
-    //find all products by category
-    List<Product> findByCategoryName(String categoryName);
+    List<Product> findByCategory(ObjectId categoryId);
 }

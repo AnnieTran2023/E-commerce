@@ -4,8 +4,13 @@ import java.util.List;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import fi.haagahelia.ecommerce.domain.Category;
 import fi.haagahelia.ecommerce.domain.Product;
 import fi.haagahelia.ecommerce.domain.ProductRepository;
+import fi.haagahelia.ecommerce.domain.CategoryRepository;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +22,10 @@ public class ProductController {
 
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
+    // Rest service to get all products
     // Rest service to get all products
     @RequestMapping(value = "/products", method = RequestMethod.GET)
     public @ResponseBody List<Product> productRest() {
@@ -43,11 +51,20 @@ public class ProductController {
         return "Product deleted successfully " + id;
     }
 
-    //Rest service to delete all products
+    // Rest service to delete all products
     @RequestMapping(value = "/deleteAll", method = RequestMethod.GET)
     public @ResponseBody String deleteAllProducts() {
         productRepository.deleteAll();
         return "All products deleted successfully!";
     }
 
+    @GetMapping("/category/{categoryName}")
+    public @ResponseBody List<Product> findProductByCategory(@PathVariable("categoryName") String categoryName) {
+        Category category = categoryRepository.findByName(categoryName);
+        if (category != null) {
+            return productRepository.findByCategory(category.getId());
+        } else {
+            return List.of();
+        }
+    }
 }

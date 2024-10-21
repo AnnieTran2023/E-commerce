@@ -1,5 +1,7 @@
 package fi.haagahelia.ecommerce.domain;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,6 +20,9 @@ public class Product {
 
     @DBRef
     private Category category; 
+
+    @DBRef
+    private List<Order> orders;
     
     public Product() {
     }
@@ -77,6 +82,15 @@ public class Product {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+    
     
     
     
