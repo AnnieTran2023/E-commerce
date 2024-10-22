@@ -6,6 +6,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Id;
 
 @Document(collection = "product")
@@ -23,6 +25,7 @@ public class Product {
     private Category category; 
 
     @DBRef
+    @JsonManagedReference
     private List<OrderProduct> orderProducts;
     
     public Product() {

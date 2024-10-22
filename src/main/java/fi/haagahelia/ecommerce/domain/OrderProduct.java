@@ -3,6 +3,9 @@ package fi.haagahelia.ecommerce.domain;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Id;
 
 @Document(collection = "order_product")
@@ -12,6 +15,7 @@ public class OrderProduct {
     private ObjectId id;
 
     @DBRef
+    @JsonBackReference
     private Product product;
 
     private int quantity;
