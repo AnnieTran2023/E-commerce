@@ -6,8 +6,10 @@ import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.lang.NonNull;
 
-public interface ProductRepository extends MongoRepository <Product, ObjectId> {
-    List <Product> findByName(String name);
+public interface ProductRepository extends MongoRepository<Product, ObjectId> {
+    List<Product> findByName(String name);
+
     void deleteById(@NonNull ObjectId id);
-    List<Product> findByCategory(ObjectId categoryId);
+
+    List<Product> findByCategoryId(ObjectId categoryId);
 }

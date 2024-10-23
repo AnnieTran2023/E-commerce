@@ -101,6 +101,14 @@ public class ProductService {
         return convertToDTO(product);
     }
 
+    public List<ProductDTO> getProductsByCategory(String categoryId) {
+        List<Product> products = productRepository.findByCategoryId(new ObjectId(categoryId));
+        System.out.println("Products found: " + products.size()); // Add logging
+        return products.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     public void deleteProduct(String id) {
         productRepository.deleteById(new ObjectId(id));
     }
