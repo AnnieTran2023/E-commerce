@@ -1,50 +1,37 @@
-package fi.haagahelia.ecommerce.domain;
+package fi.haagahelia.ecommerce.dto;
 
 import java.util.List;
 
-import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.DBRef;
-import org.springframework.data.mongodb.core.mapping.Document;
+public class ProductDTO {
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
-import jakarta.persistence.Id;
-
-@Document(collection = "product")
-public class Product {
-
-    @Id
-    private ObjectId id;
+    private String id;
     private String name;
     private String description;
     private String imageUrl;
     private double price;
     private int quantity;
+    private CategoryDTO category;
+    private List <OrderProductDTO> orderProducts;
 
-    @DBRef
-    private Category category; 
-
-    @DBRef
-    @JsonManagedReference
-    private List<OrderProduct> orderProducts;
-    
-    public Product() {
+    public ProductDTO() {
     }
 
-    public Product(String name, String description, String imageUrl, double price, int quantity, Category category) {
+    public ProductDTO(String name, String description, String imageUrl, double price, int quantity,
+            CategoryDTO category, List<OrderProductDTO> orderProducts) {
         this.name = name;
         this.description = description;
         this.imageUrl = imageUrl;
         this.price = price;
         this.quantity = quantity;
         this.category = category;
+        this.orderProducts = orderProducts;
     }
 
-    public ObjectId getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(ObjectId id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -88,21 +75,22 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public Category getCategory() {
+    public CategoryDTO getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
-        this.category = category ;
+    public void setCategory(CategoryDTO category) {
+        this.category = category;
     }
 
-    public List<OrderProduct> getOrderProducts() {
+    public List<OrderProductDTO> getOrderProducts() {
         return orderProducts;
     }
 
-    public void setOrderProducts(List<OrderProduct> orderProducts) {
+    public void setOrderProducts(List<OrderProductDTO> orderProducts) {
         this.orderProducts = orderProducts;
     }
 
     
+
 }

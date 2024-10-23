@@ -17,11 +17,10 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/users/add").permitAll()                                   
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()                                                                           
-                        .requestMatchers("/").permitAll() 
-                        .anyRequest().authenticated() 
-                )
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/products").permitAll()
+                        .anyRequest().authenticated())
                 .formLogin(withDefaults())
                 .logout(logout -> logout
                         .logoutSuccessUrl("/"));

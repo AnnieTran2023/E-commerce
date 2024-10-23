@@ -1,70 +1,40 @@
 package fi.haagahelia.ecommerce.web;
 
-import java.util.List;
-import org.bson.types.ObjectId;
+import fi.haagahelia.ecommerce.dto.ProductDTO;
+import fi.haagahelia.ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
-import fi.haagahelia.ecommerce.domain.Category;
-import fi.haagahelia.ecommerce.domain.Product;
-import fi.haagahelia.ecommerce.domain.ProductRepository;
-import fi.haagahelia.ecommerce.domain.CategoryRepository;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-@Controller
+@RestController
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private ProductService productService;
 
-
-    // Rest service to get all products
-    @RequestMapping(value = "/products", method = RequestMethod.GET)
-    public @ResponseBody List<Product> productRest() {
-        return (List<Product>) productRepository.findAll();
+    @GetMapping
+    public List <ProductDTO> getAllProducts(){
+        return productService.getAllProducts();
     }
 
-    // Rest service to get product by name
-    @RequestMapping(value = "/search/{name}", method = RequestMethod.GET)
-    public @ResponseBody List<Product> findProductByName(@PathVariable("name") String name) {
-        return productRepository.findByName(name);
+    @GetMapping("/{id}")
+    public ProductDTO getProduct(@PathVariable String id){
+        return productService.getProductById(id);
     }
 
-    // Rest service for adding a new product
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public @ResponseBody Product addProduct(@RequestBody Product newProduct) {
-        return productRepository.save(newProduct);
+    @PostMapping
+    public ProductDTO createNewProduct(@RequestBody ProductDTO productDTO){
+        return productService.createNewProduct(productDTO);
     }
 
-    // Rest service to delete product by id
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
-    public @ResponseBody String deleteProduct(@PathVariable("id") ObjectId id) {
-        productRepository.deleteById(id);
-        return "Product deleted successfully " + id;
+    @PutMapping("/{id}")
+    public ProductDTO updateProduct(@PathVariable String id, @RequestBody ProductDTO productDTO){
+        return productService.updateProduct(id, productDTO);
     }
 
-    // Rest service to delete all products
-    @RequestMapping(value = "/deleteAll", method = RequestMethod.GET)
-    public @ResponseBody String deleteAllProducts() {
-        productRepository.deleteAll();
-        return "All products deleted successfully!";
-    }
-
-    @GetMapping("/category/{categoryName}")
-    public @ResponseBody List<Product> findProductByCategory(@PathVariable("categoryName") String categoryName) {
-        Category category = categoryRepository.findByName(categoryName);
-        if (category != null) {
-            return productRepository.findByCategory(category.getId());
-        } else {
-            return List.of();
-        }
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable String id){
+        productService.deleteProduct(id);
     }
 }
