@@ -15,6 +15,9 @@ public class OrderProduct {
     private ObjectId id;
 
     @DBRef
+    private User user;
+
+    @DBRef
     @JsonBackReference
     private Product product;
 
@@ -23,7 +26,9 @@ public class OrderProduct {
     public OrderProduct() {
     }
 
-    public OrderProduct(Product product, int quantity) {
+    public OrderProduct(ObjectId id, User user, Product product, int quantity) {
+        this.id = id;
+        this.user = user;
         this.product = product;
         this.quantity = quantity;
     }
@@ -34,6 +39,14 @@ public class OrderProduct {
 
     public void setId(ObjectId id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Product getProduct() {
@@ -51,4 +64,6 @@ public class OrderProduct {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    
 }
