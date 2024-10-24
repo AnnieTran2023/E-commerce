@@ -20,6 +20,7 @@ public class SecurityConfig {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers("/").permitAll()
                         .requestMatchers("/products").permitAll()
+                        .requestMatchers("/orders/all").hasAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .formLogin(withDefaults())
                 .logout(logout -> logout
