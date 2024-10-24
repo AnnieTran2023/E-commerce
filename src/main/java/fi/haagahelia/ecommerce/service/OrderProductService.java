@@ -39,9 +39,15 @@ public class OrderProductService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Product not found with id: " + orderProductDTO.getProductId()));
 
+        //Check if the quantity exceeds the available stock
+        if (orderProductDTO.getQuantity() > product.getQuantity()) {
+            throw new IllegalArgumentException("Requested quantity exceeds available stock");
+        }
+
         OrderProduct orderProduct = new OrderProduct();
         orderProduct.setProduct(product);
         orderProduct.setQuantity(orderProductDTO.getQuantity());
+        orderProduct.setUser(user);
         orderProductRepository.save(orderProduct);
 
         return convertToDTO(orderProduct);
