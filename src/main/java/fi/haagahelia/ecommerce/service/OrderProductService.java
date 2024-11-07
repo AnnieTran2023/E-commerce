@@ -1,3 +1,4 @@
+
 package fi.haagahelia.ecommerce.service;
 
 import fi.haagahelia.ecommerce.domain.OrderProduct;
@@ -39,7 +40,7 @@ public class OrderProductService {
                 .orElseThrow(() -> new ResourceNotFoundException(
                         "Product not found with id: " + orderProductDTO.getProductId()));
 
-        //Check if the quantity exceeds the available stock
+        // Check if the quantity exceeds the available stock
         if (orderProductDTO.getQuantity() > product.getQuantity()) {
             throw new IllegalArgumentException("Requested quantity exceeds available stock");
         }
@@ -71,6 +72,8 @@ public class OrderProductService {
         dto.setProductId(orderProduct.getProduct().getId().toString());
         dto.setProductName(orderProduct.getProduct().getName());
         dto.setQuantity(orderProduct.getQuantity());
+        dto.setUserId(orderProduct.getUser().getId().toString());
+        dto.setUsername(orderProduct.getUser().getUsername());
         return dto;
     }
 }

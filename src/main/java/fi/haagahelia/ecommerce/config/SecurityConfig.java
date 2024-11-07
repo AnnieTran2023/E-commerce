@@ -17,20 +17,21 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import fi.haagahelia.ecommerce.service.*;
 import static org.springframework.security.config.Customizer.withDefaults;
-
+import fi.haagahelia.ecommerce.service.*;
+import fi.haagahelia.ecommerce.*;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
-    private final CustomUserDetailsService customUserDetailsService;
-
-    public SecurityConfig(CustomUserDetailsService customUserDetailsService) {
-        this.customUserDetailsService = customUserDetailsService;
-    }
+    private final UserDetailsServiceImpl userDetailsService;
+    private final AuthenticationFilter authenticationFilter;
 
     private static final String[] SWAGGER_PATHS = { "/api-docs/**", "/swagger-ui/**" };
+
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, AuthenticationFilter authenticationFilter) {
+        this.userDetailsService = userDetailsService;
+        this.authenticationFilter = authenticationFilter;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -40,14 +41,17 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(SWAGGER_PATHS).permitAll()
-                        .anyRequest().authenticated());
+                        .requestMatchers("/orders/**").authenticated()
+                        .anyRequest().authenticated())
+                .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
+
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(customUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
-    
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -56,5 +60,19 @@ public class SecurityConfig {
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowedOrigins(Arrays.asList("*"));
+        config.setAllowedMethods(Arrays.asList("*"));
+        config.setAllowedHeaders(Arrays.asList("*"));
+        config.setAllowCredentials(false);
+        config.applyPermitDefaultValues();
+
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 }
