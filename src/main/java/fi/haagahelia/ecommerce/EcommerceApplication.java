@@ -74,11 +74,11 @@ public class EcommerceApplication {
 			System.out.println("Sample products inserted into the database.");
 
 			// Create order products
-			OrderProduct orderProduct1 = new OrderProduct(iphone15, 2);
-			OrderProduct orderProduct2 = new OrderProduct(samsungGalaxy, 1);
-			OrderProduct orderProduct3 = new OrderProduct(iPad, 3);
-			OrderProduct orderProduct4 = new OrderProduct(book1, 5);
-			OrderProduct orderProduct5 = new OrderProduct(tshirt, 10);
+			OrderProduct orderProduct1 = new OrderProduct(user, iphone15, 2);
+			OrderProduct orderProduct2 = new OrderProduct(user, samsungGalaxy, 1);
+			OrderProduct orderProduct3 = new OrderProduct(admin, iPad, 3);
+			OrderProduct orderProduct4 = new OrderProduct(admin, book1, 5);
+			OrderProduct orderProduct5 = new OrderProduct(user, tshirt, 10);
 
 			// Save order products
 			orderProductRepository
