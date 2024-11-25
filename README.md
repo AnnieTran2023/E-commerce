@@ -1,6 +1,6 @@
 # E-commerce Application
 
-This project is a simplified e-commerce application built with Spring Boot and MongoDB. It features user authentication and authorization using JWT, and follows the DTO pattern for data transfer. The application allows users to browse products, add items to their cart, place orders, and manage their orders.
+This project is a e-commerce application built with Spring Boot and MongoDB. It features user authentication and authorization using JWT, and follows the DTO pattern for data transfer. The application allows users to browse products, add items to their cart, place orders, and manage their orders.
 
 ## Features
 
