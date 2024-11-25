@@ -17,6 +17,7 @@ This project is a simplified e-commerce application built with Spring Boot and M
 - **Spring Security**: User authentication and authorization.
 - **JWT**: JSON Web Tokens for secure authentication.
 - **DTO Pattern**: Data Transfer Objects for efficient data transfer.
+- **Deployment**: Heroku
 
 ### Authentication
 
