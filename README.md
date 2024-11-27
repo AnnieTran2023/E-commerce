@@ -2,6 +2,22 @@
 
 This project is a e-commerce application built with Spring Boot and MongoDB. It features user authentication and authorization using JWT, and follows the DTO pattern for data transfer. The application allows users to browse products, add items to their cart, place orders, and manage their orders.
 
+<div>
+    <a href="https://www.loom.com/share/aed154eaab184929864f42e5d34a1164">
+    </a>
+    <a href="https://www.loom.com/share/aed154eaab184929864f42e5d34a1164">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/aed154eaab184929864f42e5d34a1164-e7aa4cebc488d6b5-full-play.gif">
+    </a>
+  </div>
+
+  <div>
+    <a href="https://www.loom.com/share/16dd056bb5d04925809b6d8190c280e4">
+    </a>
+    <a href="https://www.loom.com/share/16dd056bb5d04925809b6d8190c280e4">
+      <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/16dd056bb5d04925809b6d8190c280e4-624aa2c38ad796f3-full-play.gif">
+    </a>
+  </div>
+
 ## Features
 
 - **Product Management**: View a list of available products.
